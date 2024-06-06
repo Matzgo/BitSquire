@@ -1,0 +1,3 @@
+[submodule "BitSquire/vendor/spdlog"]
+	path = BitSquire/vendor/spdlog
+	url = https://github.com/gabime/spdlog

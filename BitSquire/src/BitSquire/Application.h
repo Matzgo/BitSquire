@@ -1,9 +1,11 @@
 #pragma once
 #include "Core.h"
-namespace BitSquire 
+#include "BitSquire/Events/Event.h"
+
+namespace Squire 
 {
 
-class BITSQUIRE_API Application
+class SQUIRE_API Application
 {
 public:
 	Application();

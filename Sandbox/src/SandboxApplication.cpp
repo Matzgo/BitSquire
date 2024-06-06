@@ -1,6 +1,6 @@
 #include "BitSquire.h"
 
-class Sandbox : public BitSquire::Application
+class Sandbox : public Squire::Application
 {
 public:
 	Sandbox(){}
@@ -10,14 +10,8 @@ private:
 
 };
 
-//Sandbox : public BitSquire::Application::Sandbox : public BitSquire::Application()
-//{
-//}
-//
-//Sandbox : public BitSquire::Application::~Sandbox : public BitSquire::Application()
-//{
-//}
-BitSquire::Application* BitSquire::CreateApplication()
+
+Squire::Application* Squire::CreateApplication()
 {
 	return new Sandbox();
 }
