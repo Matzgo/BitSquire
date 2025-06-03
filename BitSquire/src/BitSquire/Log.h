@@ -3,7 +3,7 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "spdlog/fmt/ostr.h"
-#include<memory>
+
 namespace Squire {
 
 	class SQUIRE_API Log
@@ -20,7 +20,13 @@ namespace Squire {
 
 	};
 
-	//CORE LOG MACROS
+
+}
+
+
+
+
+//CORE LOG MACROS
 #define SQ_CORE_TRACE(...)	::Squire::Log::GetCoreLogger()->trace(__VA_ARGS__)
 #define SQ_CORE_INFO(...)	::Squire::Log::GetCoreLogger()->info(__VA_ARGS__)
 #define SQ_CORE_WARN(...)	::Squire::Log::GetCoreLogger()->warn(__VA_ARGS__)
@@ -34,8 +40,3 @@ namespace Squire {
 #define SQ_WARN(...)		::Squire::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define SQ_ERROR(...)		::Squire::Log::GetClientLogger()->error(__VA_ARGS__)
 #define SQ_FATAL(...)		::Squire::Log::GetClientLogger()->critical(__VA_ARGS__)
-
-}
-
-
-

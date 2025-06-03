@@ -11,6 +11,16 @@ workspace "BitSquire"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Include directories relative to root folder (solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "BitSquire/vendor/GLFW/include"
+IncludeDir["Glad"] = "BitSquire/vendor/Glad/include"
+IncludeDir["ImGui"] = "BitSquire/vendor/imgui"
+
+include "BitSquire/vendor/GLFW"
+include "BitSquire/vendor/Glad"
+include "BitSquire/vendor/imgui"
+
 project "BitSquire"
 	location "BitSquire"	
 	kind "SharedLib"
@@ -19,6 +29,9 @@ project "BitSquire"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "sqpch.h"
+	pchsource "BitSquire/src/sqpch.cpp"
+
 	files{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp"
@@ -26,8 +39,20 @@ project "BitSquire"
 
 	includedirs{
 		"BitSquire/src",
-		"BitSquire/vendor/spdlog/include/"
+		"BitSquire/vendor/spdlog/include/",
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}"
 	}
+
+	links{
+		"GLFW",
+		"Glad",
+		"ImGui",
+		"opengl32.lib",
+		"dwmapi.lib"
+	}
+
 
 	filter "system:Windows"
 		cppdialect "C++17"
@@ -37,7 +62,9 @@ project "BitSquire"
 		defines
 		{
 			"SQ_PLATFORM_WINDOWS",
-			"SQ_BUILD_DLL"
+			"SQ_BUILD_DLL",
+			"SQ_ENABLE_ASSERTS",
+			"GLFW_INCLUDE_NONE"
 		}
 
 
@@ -55,6 +82,7 @@ project "BitSquire"
 		{  
 			"SQ_DEBUG"
 		}
+		buildoptions "/MDd"
 		symbols "On"
 			
 
@@ -63,6 +91,7 @@ project "BitSquire"
 		{ 
 			"SQ_RELEASE"
 		}
+		buildoptions "/MD"
 		optimize "On"
 
 
@@ -72,6 +101,7 @@ project "BitSquire"
 		{ 
 			"SQ_DIST"
 		}
+		buildoptions "/MDd"
 		optimize "On"
 
 project "Sandbox"
@@ -114,6 +144,7 @@ project "Sandbox"
 		{  
 			"SQ_DEBUG"
 		}
+		buildoptions "/MDd"
 		symbols "On"
 			
 	
@@ -122,6 +153,7 @@ project "Sandbox"
 		{ 
 			"SQ_RELEASE"
 		}
+		buildoptions "/MD"
 		optimize "On"
 	
 	
@@ -131,4 +163,5 @@ project "Sandbox"
 		{ 
 			"SQ_DIST"
 		}
+		buildoptions "/MD"
 		optimize "On"

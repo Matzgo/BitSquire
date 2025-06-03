@@ -1,3 +1,4 @@
+#include "sqpch.h"
 #include "Log.h"
 
 namespace Squire {

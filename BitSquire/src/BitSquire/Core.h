@@ -12,3 +12,12 @@
 #endif // HZ_PLATFORM_WINDOWS
 
 #define BIT(x) (1<<x)
+
+
+#ifdef SQ_ENABLE_ASSERTS
+	#define SQ_ASSERT(x,...) {if(!(x)){ SQ_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }}
+	#define SQ_CORE_ASSERT(x,...) {if(!(x)){ SQ_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }}
+#else
+	#define SQ_ASSERT(x,...)
+	#define SQ_CORE_ASSERT(x,...)
+#endif
